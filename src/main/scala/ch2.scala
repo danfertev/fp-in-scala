@@ -15,11 +15,8 @@ object ch2 {
   //exercise 2
   def isSortedArray[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
     val n = as.length
-    def step(k: Int): Boolean = {
-      if (k == 0) true
-      else if (ord(as(k - 1), as(k))) step(k - 1) else false
-    }
-    if (n < 2) true else step(n - 1)
+    def step(k: Int): Boolean = (k == 0) || (ord(as(k - 1), as(k)) && step(k - 1))
+    (n < 2) || step(n - 1)
   }
 
   def isSortedArray2[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
