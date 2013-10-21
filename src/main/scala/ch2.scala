@@ -13,13 +13,28 @@ object ch2 {
   }
 
   //exercise 2
-  def isSorted[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
-    def step(xs: Array[A]): Boolean = xs match {
-      case Array() => true
-      case Array(y) => true
-      case ys@Array(y1, y2, _*) => if (ord(y1, y2)) step(ys.tail) else false
+  def isSortedArray[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
+    val n = as.length
+    def step(k: Int): Boolean = {
+      if (k == 0) true
+      else if (ord(as(k - 1), as(k))) step(k - 1) else false
     }
-    step(as)
+    if (n < 2) true else step(n - 1)
+  }
+
+  def isSortedArray2[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
+    val n = as.length
+    if (n < 2) true
+    else (1 until n).forall(a => ord(as(a - 1), as(a)))
+  }
+
+  def isSortedList[A](ls: List[A], ord: (A, A) => Boolean): Boolean = {
+    def step(xs: List[A]): Boolean = xs match {
+      case List() => true
+      case List(y) => true
+      case ys@List(y1, y2, _*) => if (ord(y1, y2)) step(ys.tail) else false
+    }
+    step(ls)
   }
 
   //exercise 3
