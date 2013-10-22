@@ -15,14 +15,18 @@ object ch2 {
   //exercise 2
   def isSortedArray[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
     val n = as.length
-    def step(k: Int): Boolean = (k == 0) || (ord(as(k - 1), as(k)) && step(k - 1))
-    (n < 2) || step(n - 1)
+    var res = true
+    var i = 0
+    while (i < n - 1 && res) {
+      if (!ord(as(i), as(i + 1))) res = false
+      i += 1
+    }
+    (n < 2) || res
   }
 
   def isSortedArray2[A](as: Array[A], ord: (A, A) => Boolean): Boolean = {
     val n = as.length
-    if (n < 2) true
-    else (1 until n).forall(a => ord(as(a - 1), as(a)))
+    (n < 2) || (1 until n).forall(a => ord(as(a - 1), as(a)))
   }
 
   def isSortedList[A](ls: List[A], ord: (A, A) => Boolean): Boolean = {
@@ -35,4 +39,11 @@ object ch2 {
   }
 
   //exercise 3
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) = (a: A) => (b: B) => f(a, b)
+
+  //exercise 4
+  def uncurry[A, B, C](f: A => B => C): (A, B) => C = (a: A, b: B) => f(a)(b)
+
+  //exercise 5
+  def compose[A, B, C](f: A => B, g: B => C): A => C = (a: A) => g(f(a))
 }

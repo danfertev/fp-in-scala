@@ -40,8 +40,8 @@ class ch2Spec extends Specification {
     "with one element should be sorted" in {
       isSortedArray[Int](Array(1), _ - _ < 0)
     }
-    "with 500k elements should be sorted ascending" in {
-      isSortedArray[Int]((1 to 500000).toArray, _ - _ < 0)
+    "with 500 elements should be sorted ascending" in {
+      isSortedArray[Int]((1 to 500).toArray, _ - _ < 0)
     }
   }
 
@@ -64,8 +64,8 @@ class ch2Spec extends Specification {
     "with one element should be sorted" in {
       isSortedArray2[Int](Array(1), _ - _ < 0)
     }
-    "with 500k elements should be sorted ascending" in {
-      isSortedArray2[Int]((1 to 500000).toArray, _ - _ < 0)
+    "with 500 elements should be sorted ascending" in {
+      isSortedArray2[Int]((1 to 500).toArray, _ - _ < 0)
     }
   }
 
@@ -89,5 +89,26 @@ class ch2Spec extends Specification {
       isSortedList[Int](List(1), _ - _ < 0)
     }
   }
-  //TODO List of String
+
+  "f(a,b)" should {
+    "return the same result as curry(f)(a)(b)" in {
+      val f = (a: Int, b: Long) => s"$a - $b"
+      f(0, 0L) == curry(f)(0)(0L)
+    }
+  }
+
+  "f(a)(b)" should {
+    "return the same result as uncurry(f)(a,b)" in {
+      val f = (a: Int) => (b: Long) => s"$a - $b"
+      f(0)(0L) == uncurry(f)(0, 0L)
+    }
+  }
+
+  "g(f(a))" should {
+    "return the same result as compose(f,g)(a)" in {
+      val f = (a: Int) => a.toLong
+      val g = (b: Long) => b.toString
+      g(f(0)) == compose(f, g)(0)
+    }
+  }
 }
