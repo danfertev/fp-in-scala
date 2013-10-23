@@ -1,13 +1,10 @@
-import org.junit.runner.RunWith
 import org.specs2.mutable._
-import org.specs2.runner.JUnitRunner
 import ch2._
 
 /**
  * Denis Anfertev
  * 21.10.13 0:07
  */
-@RunWith(classOf[JUnitRunner])
 class ch2Spec extends Specification {
   "The nth Fibonacci number" should {
     "be 0 if n == 0" in {
