@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
 
-object AppBuild extends Build {
+object FPinScala extends Build {
   lazy val app = Project(
     "fp-in-scala",
     file("."),
